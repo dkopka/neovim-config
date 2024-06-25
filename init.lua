@@ -1,8 +1,14 @@
 --[[ https://mattermost.com/blog/how-to-install-and-set-up-neovim-for-code-editing/ ]]
 require('opts')
 require('keys')
+require('packer_bootstrap')
 require('packer').startup(function()
     use 'wbthomason/packer.nvim' -- packer itself. Prevents removal on sync
+
+    if PACKER_BOOTSTRAP then
+        require("packer").sync()
+    end
+
 
     use 'nvim-treesitter/nvim-treesitter'
     use 'tpope/vim-fugitive'
