@@ -1,5 +1,4 @@
 --[[ https://mattermost.com/blog/how-to-install-and-set-up-neovim-for-code-editing/ ]]
-require('vars')
 require('opts')
 require('keys')
 require('packer').startup(function()
@@ -42,7 +41,10 @@ require('packer').startup(function()
     use 'nvim-lualine/lualine.nvim' -- Statusline
     use 'kyazdani42/nvim-web-devicons' -- File icons
     use 'gruvbox-community/gruvbox' -- Theme
+
+    -- shows hints on added, changed or removed lines from git diff
+    use 'airblade/vim-gitgutter'
+    -- moving between tmux tabs with <C-hjkl>
+    use 'christoomey/vim-tmux-navigator'
 end)
-
-
 require('plug')
