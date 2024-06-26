@@ -1,32 +1,8 @@
 -- Additional LSP settings or overrides
 local lspconfig = require('lspconfig')
--- Configure rust-analyzer
-lspconfig.rust_analyzer.setup{
-    settings = {
-        ["rust-analyzer"] = {
-            cargo = {
-                allFeatures = true,
-            },
-            procMacro = {
-                enable = true,
-            },
-        }
-    }
-}
--- Configure clangd
-lspconfig.clangd.setup{
-    cmd = { "clangd" },
-    filetypes = { "c", "cpp", "objc", "objcpp" },
-    root_dir = lspconfig.util.root_pattern("compile_commands.json", "compile_flags.txt", ".git"),
-    settings = {
-        clangd = {
-            fallbackFlags = { "-std=c11" }
-        }
-    }
-}
 
 -- Keybindings for LSP features
-local on_attach = function(client, bufnr)
+local on_attach_fn = function(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
@@ -54,14 +30,35 @@ local on_attach = function(client, bufnr)
     buf_set_keymap("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 end
 
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
-local servers = { "clangd" }
-for _, lsp in ipairs(servers) do
-    lspconfig[lsp].setup {
-        on_attach = on_attach,
-        flags = {
-            debounce_text_changes = 150,
+-- Configure rust-analyzer
+lspconfig.rust_analyzer.setup{
+    on_attach = on_attach_fn,
+    flags = {
+        debounce_text_changes = 150,
+    },
+    settings = {
+        ["rust-analyzer"] = {
+            cargo = {
+                allFeatures = true,
+            },
+            procMacro = {
+                enable = true,
+            },
         }
     }
-end
+}
+-- Configure clangd
+lspconfig.clangd.setup{
+    on_attach = on_attach_fn,
+    flags = {
+        debounce_text_changes = 150,
+    },
+    cmd = { "clangd" },
+    filetypes = { "c", "cpp", "objc", "objcpp" },
+    root_dir = lspconfig.util.root_pattern("compile_commands.json", "compile_flags.txt", ".git"),
+    settings = {
+        clangd = {
+            fallbackFlags = { "-std=c11" }
+        }
+    }
+}
