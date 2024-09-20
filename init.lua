@@ -1,14 +1,18 @@
---[[ https://mattermost.com/blog/how-to-install-and-set-up-neovim-for-code-editing/ ]]
-require('opts')
-require('keys')
-require('packer_bootstrap')
+local ensure_packer = function()
+    local fn = vim.fn
+    local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+    if fn.empty(fn.glob(install_path)) > 0 then
+        fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+        vim.cmd [[packadd packer.nvim]]
+        return true
+    end
+    return false
+end
+
+local packer_bootstrap = ensure_packer()
+
 require('packer').startup(function()
     use 'wbthomason/packer.nvim' -- packer itself. Prevents removal on sync
-
-    if PACKER_BOOTSTRAP then
-        require("packer").sync()
-    end
-
 
     use 'nvim-treesitter/nvim-treesitter'
     use 'tpope/vim-fugitive'
@@ -17,6 +21,7 @@ require('packer').startup(function()
     use {
         'neovim/nvim-lspconfig',
         'williamboman/mason.nvim',
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
         'williamboman/mason-lspconfig.nvim'
     }
 
@@ -58,6 +63,14 @@ require('packer').startup(function()
     use "folke/which-key.nvim"
     -- icons required by which-key
     use "echasnovski/mini.icons"
+    if packer_bootstrap then
+        require('packer').sync()
+    end
 end)
+
+--[[ https://mattermost.com/blog/how-to-install-and-set-up-neovim-for-code-editing/ ]]
+require('opts')
+require('keys')
+
 require('plug')
 require('autocommands')
