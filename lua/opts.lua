@@ -10,6 +10,9 @@ vim.opt.shiftwidth = 4
 opt.signcolumn = "yes"           -- str:  Show the sign column
 opt.wrap = false                 -- bool: Disable line wrapping
 opt.mouse = ""                   -- str:  Disable mouse integration
+opt.foldmethod = "indent"
+opt.foldenable = false
+opt.foldlevel = 2
 
 -- [[ Filetypes ]]
 opt.encoding = 'utf8'            -- str:  String encoding to use

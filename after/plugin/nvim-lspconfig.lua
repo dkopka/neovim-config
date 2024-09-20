@@ -2,7 +2,7 @@
 local lspconfig = require('lspconfig')
 
 -- Keybindings for LSP features
-local on_attach_fn = function(client, bufnr)
+local on_attach = function(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
@@ -32,7 +32,7 @@ end
 
 -- Configure rust-analyzer
 lspconfig.rust_analyzer.setup{
-    on_attach = on_attach_fn,
+    on_attach = on_attach,
     flags = {
         debounce_text_changes = 150,
     },
@@ -49,12 +49,12 @@ lspconfig.rust_analyzer.setup{
 }
 -- Configure clangd
 lspconfig.clangd.setup{
-    on_attach = on_attach_fn,
+    on_attach = on_attach,
     flags = {
         debounce_text_changes = 150,
     },
     cmd = { "/etc/profiles/per-user/dkopka/bin/clangd" },
-    filetypes = { "c", "cpp", "objc", "objcpp", "h", "hpp" },
+    filetypes = { "c", "cpp", "objc", "objcpp" },
     root_dir = lspconfig.util.root_pattern("compile_commands.json", "compile_flags.txt", ".git"),
     settings = {
         clangd = {

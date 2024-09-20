@@ -52,5 +52,12 @@ require('packer').startup(function()
     use 'airblade/vim-gitgutter'
     -- moving between tmux tabs with <C-hjkl>
     use 'christoomey/vim-tmux-navigator'
+
+    use "folke/trouble.nvim"
+    -- show key-bindings after pressing sequence start key
+    use "folke/which-key.nvim"
+    -- icons required by which-key
+    use "echasnovski/mini.icons"
 end)
 require('plug')
+require('autocommands')
