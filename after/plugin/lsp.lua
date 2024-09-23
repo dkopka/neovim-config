@@ -30,35 +30,4 @@ local on_attach_fn = function(client, bufnr)
     buf_set_keymap("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 end
 
--- Configure rust-analyzer
-lspconfig.rust_analyzer.setup{
-    on_attach = on_attach_fn,
-    flags = {
-        debounce_text_changes = 150,
-    },
-    settings = {
-        ["rust-analyzer"] = {
-            cargo = {
-                allFeatures = true,
-            },
-            procMacro = {
-                enable = true,
-            },
-        }
-    }
-}
--- Configure clangd
-lspconfig.clangd.setup{
-    on_attach = on_attach_fn,
-    flags = {
-        debounce_text_changes = 150,
-    },
-    cmd = { "/etc/profiles/per-user/dkopka/bin/clangd" },
-    filetypes = { "c", "cpp", "objc", "objcpp", "h", "hpp" },
-    root_dir = lspconfig.util.root_pattern("compile_commands.json", "compile_flags.txt", ".git"),
-    settings = {
-        clangd = {
-            fallbackFlags = { "-std=c11" }
-        }
-    }
-}
+
