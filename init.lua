@@ -63,6 +63,11 @@ require('packer').startup(function()
     use "folke/which-key.nvim"
     -- icons required by which-key
     use "echasnovski/mini.icons"
+
+    -- https://github.com/lukas-reineke/indent-blankline.nvim
+    -- show vertical lines to help read indents
+    use "lukas-reineke/indent-blankline.nvim"
+
     if packer_bootstrap then
         require('packer').sync()
     end
