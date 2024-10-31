@@ -43,9 +43,9 @@ if file then
 end
 
 local setup_servers = function(server_name)
---    local server = ensure_installed[server_name] or {}
-    server_name.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server_name.capabilities or {})
-    lspconfig[server_name].setup(server_name)
+    local server = ensure_installed[server_name] or {}
+    server.capabilities = vim.tbl_deep_extend('force', {}, capabilities or {}, server_name.capabilities or {})
+    lspconfig[server_name].setup(server)
 end
 
 --local ensure_installed = vim.tbl_keys(servers or {})
