@@ -2,14 +2,38 @@ local ensure_packer = function()
     local fn = vim.fn
     local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
     if fn.empty(fn.glob(install_path)) > 0 then
-        fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+        fn.system({'git',
+        'clone',
+        '--depth',
+        '1',
+        'https://github.com/wbthomason/packer.nvim',
+        install_path})
         vim.cmd [[packadd packer.nvim]]
         return true
     end
     return false
 end
 
+local remove_after_dir_from_runtimepath = function()
+    -- Get current runtimepath as a list.
+    local rtp = vim.opt.runtimepath:get()
+
+    -- Filter out any paths that match "after".
+    local new_rtp = {}
+    for _, path in ipairs(rtp) do
+        if not path:match("/after$") then
+            table.insert(new_rtp, path)
+        end
+    end
+
+    -- Set the new runtimepath without those "after" directories.
+    vim.opt.runtimepath = table.concat(new_rtp, ",")
+end
+
 local packer_bootstrap = ensure_packer()
+if packer_bootstrap then
+    print("Packer bootstrap!")
+end
 
 require('packer').startup(function()
     use 'wbthomason/packer.nvim' -- packer itself. Prevents removal on sync
@@ -69,13 +93,27 @@ require('packer').startup(function()
     use "lukas-reineke/indent-blankline.nvim"
 
     if packer_bootstrap then
+        vim.api.nvim_create_autocmd("User", {
+            pattern = "PackerComplete",
+            callback = function()
+                print("Packer finished syncing!")
+                vim.cmd("quitall")
+            end,
+        })
+        -- While Packer is syncing sourcing ~/.config/nvim/lua/* and ~/.config/nvim/after/*
+        -- files create a flood of errors. It only happens on bootstrap, but is confusing.
+        -- Let's remove ~/.config/nvim/after* from being sourced on bootstrap.
+        remove_after_dir_from_runtimepath()
         require('packer').sync()
     end
 end)
 
---[[ https://mattermost.com/blog/how-to-install-and-set-up-neovim-for-code-editing/ ]]
-require('opts')
-require('keys')
+-- Do not source files on first run (bootstrap)
+if not packer_bootstrap then
+    --[[ https://mattermost.com/blog/how-to-install-and-set-up-neovim-for-code-editing/ ]]
+    require('opts')
+    require('keys')
 
-require('plug')
-require('autocommands')
+    require('plug')
+    require('autocommands')
+end
