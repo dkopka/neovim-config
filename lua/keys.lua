@@ -5,7 +5,8 @@ vim.keymap.set('n', '<C-h>', ':wincmd h<CR>', {})
 vim.keymap.set('n', '<C-j>', ':wincmd j<CR>', {})
 vim.keymap.set('n', '<C-k>', ':wincmd k<CR>', {})
 vim.keymap.set('n', '<C-l>', ':wincmd l<CR>', {})
--- nvim-telescope
+
+-- [[ telescope ]] --
 local tb = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', tb.find_files, {})
 vim.keymap.set('n', '<leader>fg', tb.live_grep, {})
@@ -13,9 +14,10 @@ vim.keymap.set('n', '<leader>fs', tb.grep_string, {})
 vim.keymap.set('n', '<leader>fb', tb.buffers, {})
 vim.keymap.set('n', '<leader>fh', tb.help_tags, {})
 vim.keymap.set('n', '<leader>g', tb.current_buffer_fuzzy_find, {})
--- NvimTree
+
+-- [[ NvimTree ]] --
 vim.keymap.set('n', '<C-b>', vim.cmd.NvimTreeToggle, {})
--- mbbill/undotree
+-- [[ mbbill/undotree ]] --
 vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle, {})
 
 
@@ -25,7 +27,7 @@ vim.keymap.set('n', '<C-x>',  '<Cmd>q<CR>', opts)
 -- [[ tab-page ]] --
 vim.keymap.set('n', '<C-t>',  '<Cmd>tabnew<CR>', opts)
 
--- [[ lsp ]] -- 
+-- [[ lsp ]] --
 vim.keymap.set('n', 'K',  '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
 vim.keymap.set('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
 vim.keymap.set('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
