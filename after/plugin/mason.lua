@@ -1,6 +1,6 @@
 local lspconfig = require('lspconfig')
 require("mason").setup()
-local ensure_installed = { 'pyright', 'gopls', 'clangd', 'rust_analyzer' }
+local ensure_installed = { 'clangd', 'rust_analyzer' }
 
 -- Keybindings for LSP features
 local on_attach_fn = function(client, bufnr)
@@ -86,7 +86,6 @@ lspconfig.clangd.setup{
     flags = {
         debounce_text_changes = 150,
     },
-    cmd = { "/etc/profiles/per-user/dkopka/bin/clangd" },
     filetypes = { "c", "cpp", "objc", "objcpp", "h", "hpp" },
     root_dir = lspconfig.util.root_pattern("compile_commands.json", "compile_flags.txt", ".git"),
     settings = {
