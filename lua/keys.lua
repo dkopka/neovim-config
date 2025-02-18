@@ -42,3 +42,12 @@ vim.keymap.set('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder(
 vim.keymap.set('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>', opts)
 vim.keymap.set('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
 
+-- [[ git ]] --
+vim.keymap.set('n', '<Tab><Tab>s', function() vim.cmd('Git show ' .. vim.fn.expand('<cword>')) end, opts)
+vim.keymap.set('n', '<Tab><Tab>l', function() vim.cmd('Git log ' .. vim.fn.expand('<cword>')) end, opts)
+vim.keymap.set('n', '<Tab><Tab>b', '<cmd>Git blame<CR>', opts)
+-- the below is actually also handled by <leader>hs
+vim.keymap.set('n', '<leader>gs', '<cmd>GitGutterStageHunk<CR>', opts)
+vim.keymap.set('n', '<leader>gu', function() vim.cmd('!git restore --staged %') end, opts)
+vim.keymap.set('n', '<leader>gr', function() vim.cmd('!git restore %') end, opts)
+vim.keymap.set('n', '<leader>gc', function() vim.cmd('GitGutterLineHighlightsToggle') end, opts)
