@@ -113,6 +113,7 @@ if not packer_bootstrap then
     --[[ https://mattermost.com/blog/how-to-install-and-set-up-neovim-for-code-editing/ ]]
     require('opts')
     require('keys')
+    require('filetype')
 
     require('plug')
     require('autocommands')
