@@ -14,6 +14,19 @@ vim.keymap.set('n', '<leader>fs', tb.grep_string, {})
 vim.keymap.set('n', '<leader>fb', tb.buffers, {})
 vim.keymap.set('n', '<leader>fh', tb.help_tags, {})
 vim.keymap.set('n', '<leader>g', tb.current_buffer_fuzzy_find, {})
+vim.keymap.set('n', '<leader>fF', function()
+    tb.find_files({
+        no_ignore = true,
+        hidden = true,
+    })
+end, {})
+vim.keymap.set('n', '<leader>fG', function()
+    tb.live_grep({
+        additional_args = function()
+            return { '--no-ignore' }
+        end,
+    })
+end, {})
 
 -- [[ NvimTree ]] --
 vim.keymap.set('n', '<C-b>', vim.cmd.NvimTreeToggle, {})
