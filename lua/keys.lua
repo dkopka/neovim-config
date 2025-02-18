@@ -44,6 +44,11 @@ vim.keymap.set('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder(
 vim.keymap.set('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>', opts)
 vim.keymap.set('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
 
+-- [[ ibl - indent-blankline ]] --
+vim.keymap.set('n', '<leader>i', '<cmd>IBLToggle<cr>', opts)
+-- [[ builtin visuals ]] --
+vim.keymap.set('n', '<leader>n', '<cmd>set invnumber<cr>', opts)
+
 -- [[ git ]] --
 vim.keymap.set('n', '<Tab><Tab>s', function() vim.cmd('Git show ' .. vim.fn.expand('<cword>')) end, opts)
 vim.keymap.set('n', '<Tab><Tab>l', function() vim.cmd('Git log ' .. vim.fn.expand('<cword>')) end, opts)
