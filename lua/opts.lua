@@ -13,6 +13,7 @@ opt.mouse = ""                   -- str:  Disable mouse integration
 opt.foldmethod = "indent"
 opt.foldenable = false
 opt.foldlevel = 2
+opt.equalalways = false
 
 -- [[ Filetypes ]]
 opt.encoding = 'utf8'            -- str:  String encoding to use

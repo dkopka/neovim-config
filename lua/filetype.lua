@@ -1,5 +1,5 @@
 vim.filetype.add({
-  extension = {
-    ovsschema = "xml",
-  },
+    extension = {
+        ovsschema = "xml",
+    },
 })
