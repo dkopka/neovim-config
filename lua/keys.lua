@@ -71,13 +71,31 @@ vim.keymap.set('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<cr>', opts_empt
 -- [[ ibl - indent-blankline ]] --
 vim.keymap.set('n', '<leader>i', '<cmd>IBLToggle<cr>', opts("IndentBlankline", "Toggle indent leading lines"))
 -- [[ builtin visuals ]] --
-vim.keymap.set('n', '<leader>n', '<cmd>set invnumber<cr>', opts("Numbers", "Toggle line number visibility"))
+vim.keymap.set('n', '<leader>n', '<cmd>set invnumber<cr><cmd>set invrelativenumber<cr>', opts("Numbers", "Toggle line number visibility"))
 
 -- [[ git ]] --
+vim.keymap.set('n', ']c', '<cmd>GitGutterNextHunk<CR>', opts("GitGutter", "Jump to Next Hunk"))
+vim.keymap.set('n', '[c', '<cmd>GitGutterPrevHunk<CR>', opts("GitGutter", "Jump to Previous Hunk"))
 which_key.add( {'<leader>g', group = "Git related functions with GitGutter" })
 vim.keymap.set('n', '<leader>gb', '<cmd>Git blame<CR>', opts("GitGutter", "Show Git Blame"))
-vim.keymap.set('n', '<leader>gl', function() vim.cmd('Git log ' .. vim.fn.expand('<cword>')) end, opts("GitGutter", "Show git log"))
-vim.keymap.set('n', '<leader>gs', function() vim.cmd('Git show ' .. vim.fn.expand('<cword>')) end, opts("GitGutter", "Show commit under cursor"))
+-- vim.keymap.set('n', '<leader>gl', function() vim.cmd('Git log ' .. vim.fn.expand('<cword>')) end, opts("GitGutter", "Show git log"))
+vim.keymap.set('n', '<leader>gl', function()
+    local word = vim.fn.expand('<cword>')
+    local is_commit = string.match(word, '^%x%x%x%x%x%x%x+')
+        vim.cmd('leftabove vsp')
+    if is_commit then
+        vim.cmd('terminal git log' .. word)
+    else
+        vim.cmd('terminal git log')
+    end
+end, opts("git", "git log <cword>"))
+
+-- vim.keymap.set('n', '<leader>gs', function() vim.cmd('Git show ' .. vim.fn.expand('<cword>')) end, opts("GitGutter", "Show commit under cursor"))
+vim.keymap.set('n', '<leader>gs', function()
+    local sha = vim.fn.expand('<cword>')
+    vim.cmd('vsp | terminal git show ' .. sha)
+    vim.cmd('startinsert')
+end, opts("git", "show commit's log"))
 vim.keymap.set('n', '<leader>gr', function() vim.cmd('!git restore %') end, opts("GitGutter", "Git restore current file"))
 vim.keymap.set('n', '<leader>gu', function() vim.cmd('!git restore --staged %') end, opts("GitGutter", "Git unstage current file"))
 

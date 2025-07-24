@@ -70,6 +70,7 @@ lspconfig.rust_analyzer.setup{
     flags = {
         debounce_text_changes = 150,
     },
+    cmd = { "/etc/profiles/per-user/dkopka/bin/rust-analyzer" },
     settings = {
         ["rust-analyzer"] = {
             cargo = {
@@ -87,6 +88,7 @@ lspconfig.clangd.setup{
     flags = {
         debounce_text_changes = 150,
     },
+    cmd = { "/etc/profiles/per-user/dkopka/bin/clangd" },
     filetypes = { "c", "cpp", "objc", "objcpp", "h", "hpp" },
     root_dir = lspconfig.util.root_pattern("compile_commands.json", "compile_flags.txt", ".git"),
     settings = {
@@ -95,3 +97,5 @@ lspconfig.clangd.setup{
         }
     }
 }
+
+lspconfig.pyright.setup {}

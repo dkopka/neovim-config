@@ -17,10 +17,6 @@ cmp.setup({
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.close(),
-    ['<CR>'] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Insert,
-      select = true,
-    })
   },
   -- Installed sources:
   sources = {
@@ -29,7 +25,7 @@ cmp.setup({
     { name = 'nvim_lsp_signature_help'},            -- display function signatures with current parameter emphasized
     { name = 'nvim_lua', keyword_length = 2},       -- complete neovim's Lua runtime API such vim.lsp.*
     { name = 'buffer', keyword_length = 2 },        -- source current buffer
-    { name = 'vsnip', keyword_length = 2 },         -- nvim-cmp source for vim-vsnip 
+    { name = 'vsnip', keyword_length = 2 },         -- nvim-cmp source for vim-vsnip
     { name = 'calc'},                               -- source for math calculation
   },
   window = {
